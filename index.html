@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Etch-a-Sketch</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+    #container {
+        display: flex;
+        background-color: black;
+        width: 1000px;
+        height: 1000px;
+        flex-wrap: wrap;
+    }
+
+    .gridNode {
+        background-color: blue;
+    }
+    .gridHover {
+        background-color: rgb(88, 105, 255);
+    }
+
+    #optionsBox {
+        background-color: green;
+        width: 300px;
+        height: 200px;
+        left: 1200px;
+        position: absolute;
+        border-radius: 7px;
+    }
+
+    #squareNumber {
+        width: 50px;
+    }
+</style>
+
+<body>
+    <div id="optionsBox">
+        <div>
+            <label>Number of Squares per Column(Max 10):</label>
+            <input type="text" id=squareNumber></input>
+            <button onclick=getSquareNumber() id=squareButton>Generate!</button>
+        </div>
+        <div>
+            <button onclick=removeAllSquares() disabled=true id=resetButton>Reset grid.</button>
+        </div>
+    </div>
+    <div id="container">
+        
+    </div>
+
+
+</body>
+<script>
+    var removedGridNode = 0;
+    var gridNode = 0;
+    var j = 0;
+    console.log(j)
+
+    function getSquareNumber() {
+
+
+
+        j = document.getElementById('squareNumber').value;
+        if (j > 10) {
+            j = 10;
+            document.getElementById("squareNumber").value = "10";
+        }
+        j = j * j;
+
+        b = 1000;
+        c = 1000;
+
+
+        a = b * c;
+        a = a / j;
+        a = Math.sqrt(a);
+        console.log(a);
+        finalDimensions = (a + "px");
+
+        for (i = 0; i < j; i = i + 1) {
+            gridName = ("gridName" + i);
+            console.log(gridName);
+            const gridNode = document.createElement("div");
+            gridNode.classList.toggle("gridNode");
+            gridNode.textContent = "OFF";
+            gridNode.setAttribute('style', 'color: #0D004D; border-radius: 99px; text-align:center')
+            gridNode.style.width = finalDimensions;
+            gridNode.style.height = finalDimensions;
+            container.appendChild(gridNode);
+            gridNode.addEventListener("mouseover", testFunction);
+        }
+        document.getElementById("squareButton").disabled = true;
+        document.getElementById("resetButton").disabled = false;
+    }
+
+    function removeAllSquares() {
+        var listOfSquares = container.getElementsByClassName("gridNode");
+
+        while (listOfSquares.length > 0) {
+
+            thingToRemove = listOfSquares[0];
+            container.removeChild(thingToRemove);
+        }
+
+        document.getElementById("squareButton").disabled = false;
+        document.getElementById("resetButton").disabled = true;
+    }
+
+    function testFunction() {
+        
+        this.classList.add("gridHover");
+        setTimeout(() => this.classList.remove("gridHover"),1000);
+    }
+
+</script>
+
+</html>
