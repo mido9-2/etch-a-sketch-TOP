@@ -31,18 +31,23 @@
     #squareNumber {
         width: 50px;
     }
+    #timeoutDelay {
+        width: 50px;
+    }
 </style>
 
 <body>
     <div id="optionsBox">
         <div>
-            <label>Number of Squares per Column(Max 10):</label>
+            <label>Number of Squares per Column(Max 100):</label>
             <input type="text" id=squareNumber></input>
             <button onclick=getSquareNumber() id=squareButton>Generate!</button>
         </div>
         <div>
             <button onclick=removeAllSquares() disabled=true id=resetButton>Reset grid.</button>
         </div>
+        <label>(Optional) Enter the Timeout on squares(in seconds, default 1 Second):</label>
+        <input type="text" id=timeoutDelay></input></div>
     </div>
     <div id="container">
         
@@ -55,17 +60,24 @@
     var gridNode = 0;
     var j = 0;
     console.log(j)
+    var q = 0
+    
 
     function getSquareNumber() {
 
-
+q = document.getElementById('timeoutDelay').value;
+q = q*1000;
+if (q < 1000){
+    q = 1000;
+}
 
         j = document.getElementById('squareNumber').value;
-        if (j > 10) {
-            j = 10;
-            document.getElementById("squareNumber").value = "10";
+        if (j > 100) {
+            j = 100;
+            document.getElementById("squareNumber").value = "100";
         }
         j = j * j;
+        
 
         b = 1000;
         c = 1000;
@@ -82,7 +94,6 @@
             console.log(gridName);
             const gridNode = document.createElement("div");
             gridNode.classList.toggle("gridNode");
-            gridNode.textContent = "OFF";
             gridNode.setAttribute('style', 'color: #0D004D; border-radius: 99px; text-align:center')
             gridNode.style.width = finalDimensions;
             gridNode.style.height = finalDimensions;
@@ -91,6 +102,7 @@
         }
         document.getElementById("squareButton").disabled = true;
         document.getElementById("resetButton").disabled = false;
+        document.getElementById("timeoutDelay").disabled = true;
     }
 
     function removeAllSquares() {
@@ -104,12 +116,13 @@
 
         document.getElementById("squareButton").disabled = false;
         document.getElementById("resetButton").disabled = true;
+        document.getElementById("timeoutDelay").disabled = false;
     }
 
     function testFunction() {
         
         this.classList.add("gridHover");
-        setTimeout(() => this.classList.remove("gridHover"),1000);
+        setTimeout(() => this.classList.remove("gridHover"),q);
     }
 
 </script>
