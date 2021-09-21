@@ -76,6 +76,12 @@ if (q < 1000){
             j = 100;
             document.getElementById("squareNumber").value = "100";
         }
+        if (j < 1) {
+            alert("That isnt a valid number");
+            j = 1;
+            document.getElementById("squareNumber").value = "1";
+        }
+
         j = j * j;
         
 
